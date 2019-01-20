@@ -8,10 +8,19 @@
 
 import UIKit
 
+enum FeedStatus {
+    case stop
+    case start
+    case pause
+}
+
+let updateInterval: Double = 0.01
+var feedStatus: FeedStatus = FeedStatus.stop
+
 class FeedViewController: UIViewController {
 
+    var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
     var timer: Timer?
-    var startDate: Date!
     
     @IBOutlet weak var currentFeedTime: UILabel!
     
@@ -22,26 +31,67 @@ class FeedViewController: UIViewController {
     }
     
     @IBAction func startTapped(_ sender: UIBarButtonItem) {
-        self.startDate = Date()
-        
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateTimeLabel), userInfo: nil, repeats: true)
+        switch feedStatus {
+        case .stop, .pause:
+            feedStatus = .start
+            setTimer(timeInterval: updateInterval)
+        case .start:
+            print("Already started... Do nothing")
+        }
+    }
+
+    func setTimer(timeInterval: TimeInterval) {
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(self.updateTimeLabel), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimeLabel() {
-        let elapsed = Date().timeIntervalSince(self.startDate)
-        let hundreds = Int((elapsed - trunc(elapsed)) * 100.0)
-        let seconds = Int(trunc(elapsed))
-        let minutes = seconds / 60
-        let hundredsStr = String(format: "%02d", hundreds)
-        let secondsStr = String(format: "%02d", seconds)
-        let minutesStr = String(format: "%02d", minutes)
-        currentFeedTime.text = "\(minutesStr):\(secondsStr).\(hundredsStr)"
+        fractions += 1
+        if (fractions > 99) {
+            seconds += 1
+            fractions = 0
+        }
+        
+        if (seconds == 60) {
+            minutes += 1
+            seconds = 0
+        }
+        
+        if (minutes == 60) {
+            hours += 1
+            minutes = 0
+        }
+        
+        let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+        let minutesString = minutes > 9 ? "\(minutes)" : "0\(minutes)"
+        let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
+        
+        currentFeedTime.text = "\(hoursString):\(minutesString):\(secondsString)"
     }
     
     @IBAction func stopTapped(_ sender: Any) {
-        
+        switch feedStatus {
+        case .start, .pause:
+            feedStatus = .stop
+            timer?.invalidate()
+            (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+            currentFeedTime.text = "00:00:00"
+        case .stop:
+            print("Already stopped, Do nothing")
+        }
     }
 
+    @IBAction func pauseTapped(_ sender: UIBarButtonItem) {
+        switch feedStatus {
+        case .start:
+            feedStatus = .pause
+            timer?.invalidate()
+        case .pause:
+            print("Already paused, Do nothing")
+        case .stop:
+            print("Already stopped, Do nothing")
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

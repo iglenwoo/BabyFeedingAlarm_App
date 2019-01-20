@@ -59,13 +59,30 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="trK-hR-ohu">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="284"/>
+                                                <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="o6W-2Y-wG5">
+                                                        <rect key="frame" x="19" y="217" width="317" height="29"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="121" id="oY1-nA-CGb"/>
+                                                        </constraints>
+                                                        <segments>
+                                                            <segment title="Breast Feeding"/>
+                                                            <segment title="Breast Pump"/>
+                                                            <segment title="Bottle"/>
+                                                        </segments>
+                                                    </segmentedControl>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="o6W-2Y-wG5" firstAttribute="centerX" secondItem="trK-hR-ohu" secondAttribute="centerX" id="0wh-qc-VWt"/>
+                                                    <constraint firstAttribute="bottom" secondItem="o6W-2Y-wG5" secondAttribute="bottom" constant="39" id="BU1-xD-J8i"/>
+                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGg-44-J2W">
                                                 <rect key="frame" x="0.0" y="284" width="355" height="150"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-9h-aUt">
-                                                        <rect key="frame" x="109.5" y="45" width="136" height="60"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOU-9h-aUt">
+                                                        <rect key="frame" x="72.5" y="45" width="210.5" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -106,7 +123,11 @@
                                             <action selector="startTapped:" destination="5NU-ZM-y6N" id="HPi-ml-qBk"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" image="bt-pause-30" width="90" id="hm0-nB-tFm" userLabel="Pause"/>
+                                    <barButtonItem title="Item" image="bt-pause-30" width="90" id="hm0-nB-tFm" userLabel="Pause">
+                                        <connections>
+                                            <action selector="pauseTapped:" destination="5NU-ZM-y6N" id="stj-ty-LGZ"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Item" image="bt-stop-30" width="90" id="RY7-lF-VHz" userLabel="Stop">
                                         <connections>
                                             <action selector="stopTapped:" destination="5NU-ZM-y6N" id="bZv-l0-hBP"/>

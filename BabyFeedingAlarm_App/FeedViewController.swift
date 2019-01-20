@@ -22,17 +22,27 @@ class FeedViewController: UIViewController {
     var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
     var timer: Timer?
     
+    @IBOutlet weak var startOutlet: UIBarButtonItem!
+    @IBOutlet weak var pauseOutlet: UIBarButtonItem!
+    @IBOutlet weak var stopOutlet: UIBarButtonItem!
     @IBOutlet weak var currentFeedTime: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        stopOutlet.isEnabled = true;
+        pauseOutlet.isEnabled = false;
+        stopOutlet.isEnabled = false;
         print("viewDidLoad - Feed")
     }
     
     @IBAction func startTapped(_ sender: UIBarButtonItem) {
         switch feedStatus {
         case .stop, .pause:
+            startOutlet.isEnabled = false;
+            pauseOutlet.isEnabled = true;
+            stopOutlet.isEnabled = true;
+            
             feedStatus = .start
             setTimer(timeInterval: updateInterval)
         case .start:
@@ -71,6 +81,10 @@ class FeedViewController: UIViewController {
     @IBAction func stopTapped(_ sender: Any) {
         switch feedStatus {
         case .start, .pause:
+            startOutlet.isEnabled = true;
+            pauseOutlet.isEnabled = false;
+            stopOutlet.isEnabled = false;
+            
             feedStatus = .stop
             timer?.invalidate()
             (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
@@ -83,6 +97,10 @@ class FeedViewController: UIViewController {
     @IBAction func pauseTapped(_ sender: UIBarButtonItem) {
         switch feedStatus {
         case .start:
+            startOutlet.isEnabled = true;
+            pauseOutlet.isEnabled = false;
+            stopOutlet.isEnabled = true;
+            
             feedStatus = .pause
             timer?.invalidate()
         case .pause:

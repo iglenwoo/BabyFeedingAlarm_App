@@ -61,8 +61,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="284"/>
                                                 <subviews>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="o6W-2Y-wG5">
-                                                        <rect key="frame" x="19" y="217" width="317" height="29"/>
+                                                        <rect key="frame" x="19" y="214" width="317" height="51"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="ShR-U3-ypt"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="121" id="oY1-nA-CGb"/>
                                                         </constraints>
                                                         <segments>
@@ -71,11 +72,22 @@
                                                             <segment title="Bottle"/>
                                                         </segments>
                                                     </segmentedControl>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AGi-hC-MkM">
+                                                        <rect key="frame" x="19" y="144" width="317" height="51"/>
+                                                        <segments>
+                                                            <segment title="Left"/>
+                                                            <segment title="Right"/>
+                                                        </segments>
+                                                    </segmentedControl>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="o6W-2Y-wG5" firstAttribute="centerX" secondItem="trK-hR-ohu" secondAttribute="centerX" id="0wh-qc-VWt"/>
-                                                    <constraint firstAttribute="bottom" secondItem="o6W-2Y-wG5" secondAttribute="bottom" constant="39" id="BU1-xD-J8i"/>
+                                                    <constraint firstItem="AGi-hC-MkM" firstAttribute="height" secondItem="o6W-2Y-wG5" secondAttribute="height" id="7kW-TP-Qp7"/>
+                                                    <constraint firstAttribute="bottom" secondItem="o6W-2Y-wG5" secondAttribute="bottom" constant="20" id="BU1-xD-J8i"/>
+                                                    <constraint firstItem="AGi-hC-MkM" firstAttribute="width" secondItem="o6W-2Y-wG5" secondAttribute="width" id="Ccl-WY-AiD"/>
+                                                    <constraint firstItem="AGi-hC-MkM" firstAttribute="centerX" secondItem="o6W-2Y-wG5" secondAttribute="centerX" id="H9C-tg-ti4"/>
+                                                    <constraint firstItem="o6W-2Y-wG5" firstAttribute="top" secondItem="AGi-hC-MkM" secondAttribute="bottom" constant="20" id="hP5-cK-M97"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGg-44-J2W">
@@ -154,6 +166,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="currentFeedTime" destination="cOU-9h-aUt" id="QOp-6F-SRN"/>
+                        <outlet property="pauseOutlet" destination="hm0-nB-tFm" id="09k-nm-vKM"/>
+                        <outlet property="startOutlet" destination="FQY-jB-cEc" id="kI5-TZ-eIl"/>
+                        <outlet property="stopOutlet" destination="RY7-lF-VHz" id="ZW0-H9-8dK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S2u-em-ERK" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -13,7 +13,7 @@
         <!--Setting-->
         <scene sceneID="6pl-mk-BlK">
             <objects>
-                <viewController id="pks-me-2Hm" userLabel="Setting" customClass="AccountViewController" customModule="BabyFeedingAlarm_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pks-me-2Hm" userLabel="Setting" customClass="SettingViewController" customModule="BabyFeedingAlarm_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="spX-lZ-KoV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -199,7 +199,7 @@
         <!--Feeding History-->
         <scene sceneID="Xiu-Pi-fuT">
             <objects>
-                <tableViewController id="aVS-LE-xcG" customClass="HistoryViewController" customModule="BabyFeedingAlarm_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="aVS-LE-xcG" customClass="HistoryTableViewController" customModule="BabyFeedingAlarm_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="e3u-lc-hjK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

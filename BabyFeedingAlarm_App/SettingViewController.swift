@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AccountViewController: UIViewController {
+class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("viewDidLoad - Account")
+        print("viewDidLoad - Setting")
     }
     
 

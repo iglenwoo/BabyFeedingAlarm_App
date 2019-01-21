@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum FeedStatus {
     case stop
@@ -89,6 +90,9 @@ class FeedViewController: UIViewController {
             timer?.invalidate()
             (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
             currentFeedTime.text = "00:00:00"
+            
+        // TODO: store feeding data
+            
         case .stop:
             print("Already stopped, Do nothing")
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 let contacts:[[String]] = [
     ["Elon Musk",       "+1-201-3141-5926"],

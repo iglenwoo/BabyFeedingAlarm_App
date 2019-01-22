@@ -16,6 +16,8 @@
 		396A21F421F278E000EB2257 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F321F278E000EB2257 /* FeedViewController.swift */; };
 		396A21F821F278FE00EB2257 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F721F278FE00EB2257 /* SettingViewController.swift */; };
 		396A21FA21F28AC400EB2257 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */; };
+		39BC958021F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 39BC957E21F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodeld */; };
+		39BC958221F6E8F400D667C0 /* FeedTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BC958121F6E8F400D667C0 /* FeedTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		396A21F321F278E000EB2257 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		396A21F721F278FE00EB2257 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		39BC957F21F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BabyFeedingAlarm_App.xcdatamodel; sourceTree = "<group>"; };
+		39BC958121F6E8F400D667C0 /* FeedTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTimer.swift; sourceTree = "<group>"; };
 		BB6B37B01258216797DE248C /* Pods_BabyFeedingAlarm_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabyFeedingAlarm_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C18B1538F67B7A5F20B5729D /* Pods-BabyFeedingAlarm_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyFeedingAlarm_App.release.xcconfig"; path = "Pods/Target Support Files/Pods-BabyFeedingAlarm_App/Pods-BabyFeedingAlarm_App.release.xcconfig"; sourceTree = "<group>"; };
 		DAD76E090D3D9340A930FE49 /* Pods-BabyFeedingAlarm_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyFeedingAlarm_App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BabyFeedingAlarm_App/Pods-BabyFeedingAlarm_App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -67,17 +71,75 @@
 		3928479021EBF89400F37F59 /* BabyFeedingAlarm_App */ = {
 			isa = PBXGroup;
 			children = (
-				3928479D21EBF89500F37F59 /* Info.plist */,
-				392847A321EC05DB00F37F59 /* GoogleService-Info.plist */,
-				3928479121EBF89400F37F59 /* AppDelegate.swift */,
-				3928479A21EBF89500F37F59 /* LaunchScreen.storyboard */,
-				3928479821EBF89500F37F59 /* Assets.xcassets */,
+				39BC959021F70FC200D667C0 /* App Delegate */,
+				39BC958721F70BC900D667C0 /* Model */,
+				39BC958A21F70EAF00D667C0 /* View Controllers */,
+				39BC958521F70BA200D667C0 /* Storyboards */,
+				39BC958921F70E8E00D667C0 /* Resources */,
+				39BC958821F70CA800D667C0 /* Core Data */,
+				39BC958F21F70F7B00D667C0 /* Supporting Files */,
+			);
+			path = BabyFeedingAlarm_App;
+			sourceTree = "<group>";
+		};
+		39BC958521F70BA200D667C0 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
 				3928479521EBF89400F37F59 /* Main.storyboard */,
+				3928479A21EBF89500F37F59 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		39BC958721F70BC900D667C0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				39BC958121F6E8F400D667C0 /* FeedTimer.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		39BC958821F70CA800D667C0 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				39BC957E21F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		39BC958921F70E8E00D667C0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3928479821EBF89500F37F59 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		39BC958A21F70EAF00D667C0 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				396A21F321F278E000EB2257 /* FeedViewController.swift */,
 				396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */,
 				396A21F721F278FE00EB2257 /* SettingViewController.swift */,
 			);
-			path = BabyFeedingAlarm_App;
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		39BC958F21F70F7B00D667C0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3928479D21EBF89500F37F59 /* Info.plist */,
+				392847A321EC05DB00F37F59 /* GoogleService-Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		39BC959021F70FC200D667C0 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3928479121EBF89400F37F59 /* AppDelegate.swift */,
+			);
+			path = "App Delegate";
 			sourceTree = "<group>";
 		};
 		AE4732AACF7E8928A24C6ED0 /* Pods */ = {
@@ -286,9 +348,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				396A21F821F278FE00EB2257 /* SettingViewController.swift in Sources */,
+				39BC958221F6E8F400D667C0 /* FeedTimer.swift in Sources */,
 				396A21F421F278E000EB2257 /* FeedViewController.swift in Sources */,
 				3928479221EBF89400F37F59 /* AppDelegate.swift in Sources */,
 				396A21FA21F28AC400EB2257 /* HistoryTableViewController.swift in Sources */,
+				39BC958021F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +501,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TW2G7A5598;
-				INFOPLIST_FILE = BabyFeedingAlarm_App/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BabyFeedingAlarm_App/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -456,7 +520,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TW2G7A5598;
-				INFOPLIST_FILE = BabyFeedingAlarm_App/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BabyFeedingAlarm_App/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,6 +554,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		39BC957E21F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				39BC957F21F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodel */,
+			);
+			currentVersion = 39BC957F21F6E65600D667C0 /* BabyFeedingAlarm_App.xcdatamodel */;
+			path = BabyFeedingAlarm_App.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3928478621EBF89400F37F59 /* Project object */;
 }

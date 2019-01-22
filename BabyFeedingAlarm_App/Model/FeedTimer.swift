@@ -17,15 +17,11 @@ class FeedTimer {
     var curStatus = Status.stop
     var timer: Timer?
     var label: UILabel?
-}
-
-extension FeedTimer {
-
+    
     //MARK: Initialization
-
-    convenience init(label: UILabel) {
-        self.init(label: <#UILabel#>)
-//        self.label = label
+    
+    init(label: UILabel) {
+        self.label = label
         self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
     }
 }

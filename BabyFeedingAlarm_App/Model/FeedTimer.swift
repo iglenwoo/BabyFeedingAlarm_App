@@ -22,7 +22,6 @@ class FeedTimer {
     
     init(label: UILabel) {
         self.label = label
-        self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
     }
 }
 
@@ -41,6 +40,7 @@ extension FeedTimer {
     func start() {
         curStatus = .start
 
+        self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .common)
     }
 
@@ -67,5 +67,17 @@ extension FeedTimer {
 
         label?.text = "\(hoursString):\(minutesString):\(secondsString)"
     }
+}
 
+extension FeedTimer {
+    func pause() {
+        timer?.invalidate()
+    }
+}
+
+extension FeedTimer {
+    func stop() {
+        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        timer?.invalidate()
+    }
 }

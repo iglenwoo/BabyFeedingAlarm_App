@@ -20,8 +20,7 @@ var feedStatus: FeedStatus = FeedStatus.stop
 
 class FeedViewController: UIViewController {
 
-    var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
-    var timer: Timer?
+    var feedTimer: FeedTimer?
     
     @IBOutlet weak var startOutlet: UIBarButtonItem!
     @IBOutlet weak var pauseOutlet: UIBarButtonItem!
@@ -30,7 +29,9 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        feedTimer = FeedTimer(label: currentFeedTime)
+
         stopOutlet.isEnabled = true;
         pauseOutlet.isEnabled = false;
         stopOutlet.isEnabled = false;
@@ -45,40 +46,12 @@ class FeedViewController: UIViewController {
             stopOutlet.isEnabled = true;
             
             feedStatus = .start
-            setTimer(timeInterval: updateInterval)
+            feedTimer!.start()
         case .start:
             print("Already started... Do nothing")
         }
     }
 
-    func setTimer(timeInterval: TimeInterval) {
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(self.updateTimeLabel), userInfo: nil, repeats: true)
-    }
-    
-    @objc func updateTimeLabel() {
-        fractions += 1
-        if (fractions > 99) {
-            seconds += 1
-            fractions = 0
-        }
-        
-        if (seconds == 60) {
-            minutes += 1
-            seconds = 0
-        }
-        
-        if (minutes == 60) {
-            hours += 1
-            minutes = 0
-        }
-        
-        let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
-        let minutesString = minutes > 9 ? "\(minutes)" : "0\(minutes)"
-        let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
-        
-        currentFeedTime.text = "\(hoursString):\(minutesString):\(secondsString)"
-    }
-    
     @IBAction func stopTapped(_ sender: Any) {
         switch feedStatus {
         case .start, .pause:
@@ -87,10 +60,8 @@ class FeedViewController: UIViewController {
             stopOutlet.isEnabled = false;
             
             feedStatus = .stop
-            timer?.invalidate()
-            (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
-            currentFeedTime.text = "00:00:00"
-            
+            feedTimer?.stop()
+
         // TODO: store feeding data
             
         case .stop:
@@ -106,7 +77,7 @@ class FeedViewController: UIViewController {
             stopOutlet.isEnabled = true;
             
             feedStatus = .pause
-            timer?.invalidate()
+            feedTimer?.pause()
         case .pause:
             print("Already paused, Do nothing")
         case .stop:

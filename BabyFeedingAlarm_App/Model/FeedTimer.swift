@@ -14,7 +14,7 @@ class FeedTimer {
 
     let updateInterval: Double = 0.01
     var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
-    var curStatus = Status.stop
+    var status = Status.stop
     var timer: Timer?
     var label: UILabel?
     
@@ -38,7 +38,7 @@ extension FeedTimer {
 
 extension FeedTimer {
     func start() {
-        curStatus = .start
+        status = .start
 
         self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .common)
@@ -61,6 +61,10 @@ extension FeedTimer {
             minutes = 0
         }
 
+        printTime()
+    }
+
+    func printTime() {
         let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
         let minutesString = minutes > 9 ? "\(minutes)" : "0\(minutes)"
         let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
@@ -71,13 +75,19 @@ extension FeedTimer {
 
 extension FeedTimer {
     func pause() {
+        status = .pause
+
         timer?.invalidate()
     }
 }
 
 extension FeedTimer {
     func stop() {
-        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        status = .stop
+
         timer?.invalidate()
+
+        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        printTime()
     }
 }

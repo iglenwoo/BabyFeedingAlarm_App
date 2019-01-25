@@ -23,19 +23,25 @@ class FeedViewController: UIViewController {
 
         feedTimer = FeedTimer(label: currentFeedTime)
 
-        stopOutlet.isEnabled = true;
+        startOutlet.isEnabled = true;
         pauseOutlet.isEnabled = false;
         stopOutlet.isEnabled = false;
         print("viewDidLoad - Feed")
     }
-    
+
+}
+
+extension FeedViewController {
+
+    // MARK: - Feed Controllers
+
     @IBAction func startTapped(_ sender: UIBarButtonItem) {
         switch feedTimer.status {
         case .stop, .pause:
             startOutlet.isEnabled = false;
             pauseOutlet.isEnabled = true;
             stopOutlet.isEnabled = true;
-            
+
             feedTimer!.start()
         case .start:
             print("Already started... Do nothing")
@@ -48,7 +54,7 @@ class FeedViewController: UIViewController {
             startOutlet.isEnabled = true;
             pauseOutlet.isEnabled = false;
             stopOutlet.isEnabled = true;
-            
+
             feedTimer?.pause()
         case .pause:
             print("Already paused, Do nothing")
@@ -66,21 +72,11 @@ class FeedViewController: UIViewController {
 
             feedTimer?.stop()
 
-                // TODO: store feeding data
+            // TODO: store feeding data
 
         case .stop:
             print("Already stopped, Do nothing")
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

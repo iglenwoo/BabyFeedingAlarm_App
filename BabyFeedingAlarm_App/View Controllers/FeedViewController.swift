@@ -73,10 +73,33 @@ extension FeedViewController {
             feedTimer?.stop()
 
             // TODO: store feeding data
+            storeData()
 
         case .stop:
             print("Already stopped, Do nothing")
         }
     }
 
+    func storeData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+
+//        let mo = NSEntityDescription.insertNewObject(forEntityName: "FeedTime", into: managedContext)
+
+        let entity = NSEntityDescription.entity(forEntityName: "FeedTime", in: managedContext)
+        let feedTime = NSManagedObject(entity: entity!, insertInto: managedContext)
+        feedTime.setValue(feedTimer.startDate, forKey: "startDate")
+        feedTime.setValue(feedTimer.endDate, forKey: "endDate")
+        feedTime.setValue(feedTimer.hours, forKey: "hours")
+        feedTime.setValue(feedTimer.minutes, forKey: "minutes")
+        feedTime.setValue(feedTimer.seconds, forKey: "seconds")
+        feedTime.setValue(feedTimer.fractions, forKey: "fractions")
+
+        do {
+            try managedContext.save()
+        } catch let error {
+            print("Could not save. \(error), \(error._userInfo)")
+        }
+    }
 }

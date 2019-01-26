@@ -66,6 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
 
+    // MARK: - Core Data stack
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "BabyFeedingAlarm_App")
         container.loadPersistentStores(completionHandler: {(storeDescription, error) in
@@ -75,6 +77,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
+
+    // MARK: - Core Data Saving support
     
     func saveContext() {
         let context = persistentContainer.viewContext

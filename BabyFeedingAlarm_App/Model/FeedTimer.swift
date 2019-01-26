@@ -10,15 +10,17 @@ import UIKit
 
 class FeedTimer {
 
-    //MARK: Properties
+    // MARK: - Properties
 
     let updateInterval: Double = 0.1
     var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
-    var status = Status.stop
+    var status: Status = Status.stop
     var timer: Timer?
+    var startDate: Date?
+    var endDate: Date?
     var label: UILabel?
     
-    //MARK: Initialization
+    // MARK: - Initialization
     
     init(label: UILabel) {
         self.label = label
@@ -27,7 +29,7 @@ class FeedTimer {
 
 extension FeedTimer {
 
-    //MARK: Status
+    // MARK: - Status
 
     enum Status {
         case start
@@ -39,6 +41,8 @@ extension FeedTimer {
 extension FeedTimer {
     func start() {
         status = .start
+
+        startDate = Date()
 
         // create the timer object without scheduling it on a run loop
         self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
@@ -89,6 +93,7 @@ extension FeedTimer {
     func stop() {
         status = .stop
 
+        endDate = Date()
         timer?.invalidate()
 
         (hours, minutes, seconds, fractions) = (0, 0, 0, 0)

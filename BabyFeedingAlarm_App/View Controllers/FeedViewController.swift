@@ -85,8 +85,6 @@ extension FeedViewController {
 
         let managedContext = appDelegate.persistentContainer.viewContext
 
-//        let mo = NSEntityDescription.insertNewObject(forEntityName: "FeedTime", into: managedContext)
-
         let entity = NSEntityDescription.entity(forEntityName: "FeedTime", in: managedContext)
         let feedTime = NSManagedObject(entity: entity!, insertInto: managedContext)
         feedTime.setValue(feedTimer.startDate, forKey: "startDate")

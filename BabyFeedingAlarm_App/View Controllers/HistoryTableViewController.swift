@@ -34,6 +34,7 @@ class HistoryTableViewController: UITableViewController {
 
         do {
             feedTimes = try managedContext.fetch(fetchRequest)
+            self.tableView.reloadData()
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -52,7 +53,12 @@ class HistoryTableViewController: UITableViewController {
 
         let feedTime = feedTimes[indexPath.row]
         let startDate = feedTime.value(forKey: "startDate") as! Date
-        cell.textLabel?.text = startDate.description
+        let hours = feedTime.value(forKey: "hours") as! Int16
+        let min = feedTime.value(forKey: "minutes") as! Int16
+        let sec = feedTime.value(forKey: "seconds") as! Int16
+        let secTxt = String(sec)
+        let minTxt = String(hours * 60 + min)
+        cell.textLabel?.text = "\(minTxt) min \(secTxt) seconds  \(startDate.description)"
         
         return cell
     }

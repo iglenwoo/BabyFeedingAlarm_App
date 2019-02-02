@@ -40,9 +40,12 @@ extension FeedTimer {
 
 extension FeedTimer {
     func start() {
-        status = .start
+        if status == .stop {
+            startDate = Date()
+            (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        }
 
-        startDate = Date()
+        status = .start
 
         // create the timer object without scheduling it on a run loop
         self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
@@ -73,11 +76,16 @@ extension FeedTimer {
     }
 
     func printTime() {
-        let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
-        let minutesString = minutes > 9 ? "\(minutes)" : "0\(minutes)"
-        let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
+        switch status{
+        case .stop:
+            label?.text = "00:00:00"
+        case .start, .pause:
+            let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
+            let minutesString = minutes > 9 ? "\(minutes)" : "0\(minutes)"
+            let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
 
-        label?.text = "\(hoursString):\(minutesString):\(secondsString)"
+            label?.text = "\(hoursString):\(minutesString):\(secondsString)"
+        }
     }
 }
 
@@ -96,7 +104,6 @@ extension FeedTimer {
         endDate = Date()
         timer?.invalidate()
 
-        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
         printTime()
     }
 }

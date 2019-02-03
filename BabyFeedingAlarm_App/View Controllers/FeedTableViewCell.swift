@@ -10,6 +10,8 @@ import UIKit
 
 class FeedTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var minutes: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

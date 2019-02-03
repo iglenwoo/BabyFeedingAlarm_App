@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreData
+import Firebase
 
 class FeedViewController: UIViewController {
 
@@ -81,23 +81,6 @@ extension FeedViewController {
     }
 
     func storeData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
-        let managedContext = appDelegate.persistentContainer.viewContext
-
-        let entity = NSEntityDescription.entity(forEntityName: "FeedTime", in: managedContext)
-        let feedTime = NSManagedObject(entity: entity!, insertInto: managedContext)
-        feedTime.setValue(feedTimer.startDate, forKey: "startDate")
-        feedTime.setValue(feedTimer.endDate, forKey: "endDate")
-        feedTime.setValue(feedTimer.hours, forKey: "hours")
-        feedTime.setValue(feedTimer.minutes, forKey: "minutes")
-        feedTime.setValue(feedTimer.seconds, forKey: "seconds")
-        feedTime.setValue(feedTimer.fractions, forKey: "fractions")
-
-        do {
-            try managedContext.save()
-        } catch let error {
-            print("Could not save. \(error), \(error._userInfo)")
-        }
     }
 }

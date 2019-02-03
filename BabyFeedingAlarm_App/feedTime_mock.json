@@ -1,0 +1,27 @@
+{
+  "users": {
+    "uid": {
+      "name": "Ingyu"
+    }
+  },
+  "feedTimes": {
+    "uid": {
+      "00:00:00 02-03-2019": {
+        "startDate": "02/03/2019",
+        "hours": 0,
+        "minutes": 10,
+        "seconds": 1,
+        "fractions": 11,
+        "endDate": "02/03/2019"
+      },
+      "00:30:00 02-03-2019": {
+        "startDate": "02/03/2019",
+        "hours": 0,
+        "minutes": 20,
+        "seconds": 2,
+        "fractions": 22,
+        "endDate": "02/03/2019"
+      }
+    }
+  }
+}

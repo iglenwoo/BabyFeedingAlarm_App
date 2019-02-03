@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import CoreData
 import Firebase
-import FirebaseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,26 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         return true
-    }
-    
-    @available(iOS 9.0, *)
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
-        return self.handleOpenUrl(url, sourceApplication: sourceApplication)
-    }
-    
-    @available(iOS 8.0, *)
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return self.handleOpenUrl(url, sourceApplication: sourceApplication)
-    }
-    
-    
-    func handleOpenUrl(_ url: URL, sourceApplication: String?) -> Bool {
-        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-            return true
-        }
-        // other URL handling goes here.
-        return false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -61,35 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        self.saveContext()
-    }
 
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "BabyFeedingAlarm_App")
-        container.loadPersistentStores(completionHandler: {(storeDescription, error) in
-            if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
-            }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-    
-    func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let error = error
-                fatalError("Unable to save context: \(error)")
-            }
-        }
-    }
 }
 

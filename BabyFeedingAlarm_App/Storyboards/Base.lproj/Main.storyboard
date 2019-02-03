@@ -159,10 +159,10 @@
             </objects>
             <point key="canvasLocation" x="729" y="-314"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="oy6-Il-AUH">
             <objects>
-                <tabBarController id="pVV-ed-cTZ" sceneMemberID="viewController">
+                <tabBarController id="pVV-ed-cTZ" customClass="MainTabBarController" customModule="BabyFeedingAlarm_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VY6-qN-yuN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -211,7 +211,23 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5zo-J6-HF9" id="JrU-wf-GdY">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUR-vE-1JJ">
+                                            <rect key="frame" x="8" y="11.5" width="359" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ZUR-vE-1JJ" firstAttribute="centerY" secondItem="JrU-wf-GdY" secondAttribute="centerY" id="GRG-92-9e9"/>
+                                        <constraint firstItem="ZUR-vE-1JJ" firstAttribute="leading" secondItem="JrU-wf-GdY" secondAttribute="leading" constant="8" id="dLx-ya-Yws"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZUR-vE-1JJ" secondAttribute="trailing" constant="8" id="vNa-lB-OCC"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="minutes" destination="ZUR-vE-1JJ" id="shR-Vu-sX0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

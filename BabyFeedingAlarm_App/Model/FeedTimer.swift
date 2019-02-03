@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class FeedTimer {
 
@@ -24,6 +25,23 @@ class FeedTimer {
     
     init(label: UILabel) {
         self.label = label
+    }
+
+    init?(snapshot: DataSnapshot) {
+        let dict = snapshot.value as? [String:Any]
+        let hours = dict?["hours"] as! Int
+        let minutes = dict?["minutes"] as! Int
+        let seconds = dict?["seconds"] as! Int
+        let fractions = dict?["fractions"] as! Int
+        let startDate = dict?["startDate"] as! Date
+        let endDate = dict?["endDate"] as! Date
+
+        self.hours = hours
+        self.minutes = minutes
+        self.seconds = seconds
+        self.fractions = fractions
+        self.startDate = startDate
+        self.endDate = endDate
     }
 }
 

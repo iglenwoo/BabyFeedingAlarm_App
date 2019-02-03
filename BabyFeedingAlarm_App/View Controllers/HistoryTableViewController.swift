@@ -7,37 +7,46 @@
 //
 
 import UIKit
-import CoreData
+import Firebase
 
 class HistoryTableViewController: UITableViewController {
 
-    var feedTimes: [NSManagedObject] = []
+    var feedTimes: [FeedTimer] = []
+
+    var ref: DatabaseReference!
+    var feedTimeRef: DatabaseReference!
+    var refHandle: DatabaseHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "FeedTableViewCell")
+        configureDatabase()
         
         print("viewDidLoad - History")
     }
+
+    func configureDatabase() {
+        ref = Database.database().reference()
+
+        let identifier = "feedTimes"
+        feedTimeRef = ref.child(identifier);
+
+        feedTimeRef.observe(DataEventType.value, with: { snapshot in
+            for child in snapshot.children {
+                if let snapshot = child as? DataSnapshot {
+                    self.feedTimes.append(FeedTimer(snapshot: snapshot)!)
+                }
+            }
+
+            self.tableView.reloadData()
+        })
+    }
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         print("viewWillAppear - History")
-
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-
-        let managedContext = appDelegate.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FeedTime")
-
-        do {
-            feedTimes = try managedContext.fetch(fetchRequest)
-            self.tableView.reloadData()
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,17 +58,12 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
         let feedTime = feedTimes[indexPath.row]
-        let startDate = feedTime.value(forKey: "startDate") as! Date
-        let hours = feedTime.value(forKey: "hours") as! Int16
-        let min = feedTime.value(forKey: "minutes") as! Int16
-        let sec = feedTime.value(forKey: "seconds") as! Int16
-        let secTxt = String(sec)
-        let minTxt = String(hours * 60 + min)
-        cell.textLabel?.text = "\(minTxt) min \(secTxt) seconds  \(startDate.description)"
-        
+        let time = String(feedTime.minutes) + " m"
+        cell.minutes.text = time
+
         return cell
     }
 

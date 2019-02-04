@@ -9,31 +9,45 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class HistoryTableViewController: UITableViewController {
 
     var feedTimes: [FeedTimer] = []
 
     var ref: DatabaseReference!
-    var feedTimeRef: DatabaseReference!
-    var refHandle: DatabaseHandle?
+    var feedTimeRef: DatabaseReference?
+    var handle: UInt?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureDatabase()
-        
+
         print("viewDidLoad - History")
     }
 
     func configureDatabase() {
         ref = Database.database().reference()
 
-        let identifier = "feedTimes/\(Auth.auth().currentUser!.uid)"
-        feedTimeRef = ref.child(identifier);
+        guard let currentUser = Auth.auth().currentUser else {
+            print("currentUser is nil")
+            return
+        }
 
-        //TODO: 1. update uid in Firebase,  get the data
-        feedTimeRef.observe(DataEventType.value, with: { snapshot in
+        let identifier = "feedTimes/\(currentUser.uid)"
+        feedTimeRef = ref.child(identifier);
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        guard let feedTimeRef = feedTimeRef else {
+            print("feedTimeRef is nil")
+            return
+        }
+
+        handle = feedTimeRef.observe(DataEventType.value, with: { snapshot in
             var feedTimes: [FeedTimer] = []
 
             for child in snapshot.children {
@@ -45,23 +59,30 @@ class HistoryTableViewController: UITableViewController {
             self.feedTimes = feedTimes
             self.tableView.reloadData()
         })
-    }
-
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
         print("viewWillAppear - History")
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let handle = handle {
+            self.ref.removeObserver(withHandle: handle)
+        }
+
+        print("viewWillDisappear - History")
+    }
+}
+
+extension HistoryTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedTimes.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
@@ -72,16 +93,6 @@ class HistoryTableViewController: UITableViewController {
         cell.minutes.text = "\(hours) hour  \(minutes) minutes  \(seconds) seconds"
 
         return cell
+
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

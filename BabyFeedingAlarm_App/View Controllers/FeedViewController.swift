@@ -78,7 +78,6 @@ extension FeedViewController {
 
             feedTimer?.stop()
 
-            // TODO: store feeding data
             storeData()
 
         case .stop:

@@ -86,6 +86,7 @@ extension HistoryTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
+        // TODO: 3. add view status
         let feedTime = feedTimes[indexPath.row]
         let hours = String(feedTime.hours)
         let minutes = String(feedTime.minutes)
@@ -95,4 +96,6 @@ extension HistoryTableViewController {
         return cell
 
     }
+
+    // TODO: 1. delete, update
 }

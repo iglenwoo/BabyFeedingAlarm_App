@@ -17,6 +17,8 @@ class FeedViewController: UIViewController {
 
     var ref: DatabaseReference!
 
+    // TODO: 2. add buttons & status - breast/bottle feeding | pumping, Left | right
+
     @IBOutlet weak var startOutlet: UIBarButtonItem!
     @IBOutlet weak var pauseOutlet: UIBarButtonItem!
     @IBOutlet weak var stopOutlet: UIBarButtonItem!
@@ -100,6 +102,7 @@ extension FeedViewController {
             "endDate": df.string(from: feedTimer.endDate!)
         ] as [String : Any]
 
+        // NOTE: setvalue vs updateChildValues ?
 //        self.ref.child("feedTimes/\(user!.uid)/\(key)").setValue(value)
         self.ref.child("feedTimes/\(user!.uid)/\(key)").updateChildValues(value)
     }

@@ -8,11 +8,15 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
 class FeedViewController: UIViewController {
 
     var feedTimer: FeedTimer!
-    
+
+    var ref: DatabaseReference!
+
     @IBOutlet weak var startOutlet: UIBarButtonItem!
     @IBOutlet weak var pauseOutlet: UIBarButtonItem!
     @IBOutlet weak var stopOutlet: UIBarButtonItem!
@@ -20,6 +24,8 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        ref = Database.database().reference()
 
         feedTimer = FeedTimer(label: currentFeedTime)
 
@@ -81,6 +87,21 @@ extension FeedViewController {
     }
 
     func storeData() {
+        let user = Auth.auth().currentUser
 
+        let df = Utils.getDateFormatter()
+        let key = df.string(from: feedTimer.startDate!)
+
+        let value = [
+            "startDate": key,
+            "hours": feedTimer.hours,
+            "minutes": feedTimer.minutes,
+            "seconds": feedTimer.seconds,
+            "fractions": feedTimer.fractions,
+            "endDate": df.string(from: feedTimer.endDate!)
+        ] as [String : Any]
+
+//        self.ref.child("feedTimes/\(user!.uid)/\(key)").setValue(value)
+        self.ref.child("feedTimes/\(user!.uid)/\(key)").updateChildValues(value)
     }
 }

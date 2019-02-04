@@ -14,6 +14,7 @@
 		3928479C21EBF89500F37F59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3928479A21EBF89500F37F59 /* LaunchScreen.storyboard */; };
 		392847A421EC05DB00F37F59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 392847A321EC05DB00F37F59 /* GoogleService-Info.plist */; };
 		393C6BF622078CED00E63FC1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393C6BF522078CED00E63FC1 /* MainTabBarController.swift */; };
+		393C6BF82207D17100E63FC1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393C6BF72207D17100E63FC1 /* Utils.swift */; };
 		396A21F421F278E000EB2257 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F321F278E000EB2257 /* FeedViewController.swift */; };
 		396A21F821F278FE00EB2257 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F721F278FE00EB2257 /* SettingViewController.swift */; };
 		396A21FA21F28AC400EB2257 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */; };
@@ -31,6 +32,7 @@
 		3928479D21EBF89500F37F59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		392847A321EC05DB00F37F59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		393C6BF522078CED00E63FC1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		393C6BF72207D17100E63FC1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		396A21F321F278E000EB2257 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		396A21F721F278FE00EB2257 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				39BC958921F70E8E00D667C0 /* Resources */,
 				39BC958F21F70F7B00D667C0 /* Supporting Files */,
 				907603454524913D655CAF7E /* feedTime_mock.json */,
+				393C6BF72207D17100E63FC1 /* Utils.swift */,
 			);
 			path = BabyFeedingAlarm_App;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				396A21F421F278E000EB2257 /* FeedViewController.swift in Sources */,
 				3928479221EBF89400F37F59 /* AppDelegate.swift in Sources */,
 				396A21FA21F28AC400EB2257 /* HistoryTableViewController.swift in Sources */,
+				393C6BF82207D17100E63FC1 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

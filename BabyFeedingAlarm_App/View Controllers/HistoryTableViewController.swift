@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class HistoryTableViewController: UITableViewController {
 
@@ -28,16 +29,20 @@ class HistoryTableViewController: UITableViewController {
     func configureDatabase() {
         ref = Database.database().reference()
 
-        let identifier = "feedTimes"
+        let identifier = "feedTimes/\(Auth.auth().currentUser!.uid)"
         feedTimeRef = ref.child(identifier);
 
+        //TODO: 1. update uid in Firebase,  get the data
         feedTimeRef.observe(DataEventType.value, with: { snapshot in
+            var feedTimes: [FeedTimer] = []
+
             for child in snapshot.children {
                 if let snapshot = child as? DataSnapshot {
-                    self.feedTimes.append(FeedTimer(snapshot: snapshot)!)
+                    feedTimes.append(FeedTimer(snapshot: snapshot)!)
                 }
             }
 
+            self.feedTimes = feedTimes
             self.tableView.reloadData()
         })
     }
@@ -61,8 +66,10 @@ class HistoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
         let feedTime = feedTimes[indexPath.row]
-        let time = String(feedTime.minutes) + " m"
-        cell.minutes.text = time
+        let hours = String(feedTime.hours)
+        let minutes = String(feedTime.minutes)
+        let seconds = String(feedTime.seconds)
+        cell.minutes.text = "\(hours) hour  \(minutes) minutes  \(seconds) seconds"
 
         return cell
     }

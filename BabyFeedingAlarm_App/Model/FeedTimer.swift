@@ -28,13 +28,15 @@ class FeedTimer {
     }
 
     init?(snapshot: DataSnapshot) {
+        let df = Utils.getDateFormatter()
+
         let dict = snapshot.value as? [String:Any]
         let hours = dict?["hours"] as! Int
         let minutes = dict?["minutes"] as! Int
         let seconds = dict?["seconds"] as! Int
         let fractions = dict?["fractions"] as! Int
-        let startDate = dict?["startDate"] as! Date
-        let endDate = dict?["endDate"] as! Date
+        let startDate = df.date(from: dict?["startDate"] as! String)
+        let endDate = df.date(from: dict?["endDate"] as! String)
 
         self.hours = hours
         self.minutes = minutes

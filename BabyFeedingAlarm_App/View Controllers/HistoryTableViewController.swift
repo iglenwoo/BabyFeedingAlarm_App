@@ -98,4 +98,24 @@ extension HistoryTableViewController {
     }
 
     // TODO: 1. delete, update
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("currentUser is nil")
+            return
+        }
+
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            let feedTime = feedTimes[indexPath.row]
+            let df = Utils.getDateFormatter()
+            let key = df.string(from: feedTime.startDate!)
+            let identifier = "feedTimes/\(currentUser.uid)/\(key)"
+            ref.child(identifier).removeValue();
+
+            feedTimes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .bottom)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
 }

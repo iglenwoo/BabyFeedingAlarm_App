@@ -17,7 +17,6 @@ class FeedViewController: UIViewController {
 
     var ref: DatabaseReference!
 
-    // TODO: 2. add buttons & status - breast/bottle feeding | pumping, Left | right
     @IBOutlet weak var LRSegmentedControl: UISegmentedControl!
     
     @IBOutlet weak var startOutlet: UIBarButtonItem!

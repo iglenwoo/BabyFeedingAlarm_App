@@ -86,7 +86,7 @@ extension HistoryTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
-        // TODO: 3. add view status
+        // TODO: 3. show more info e.g. feedType, Group by date?
         let feedTime = feedTimes[indexPath.row]
         let hours = String(feedTime.hours)
         let minutes = String(feedTime.minutes)
@@ -97,7 +97,7 @@ extension HistoryTableViewController {
 
     }
 
-    // TODO: 1. delete, update
+    // TODO: 4. update history
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let currentUser = Auth.auth().currentUser else {
             print("currentUser is nil")

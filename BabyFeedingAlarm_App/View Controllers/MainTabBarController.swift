@@ -42,8 +42,7 @@ class MainTabBarController: UITabBarController {
 
         debugPrint("[MainTabBarController] viewWillAppear called")
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            // TODO: is this what is supposed to be?
-            if ((user) == nil) {
+            if user == nil {
                 debugPrint("[MainTabBarController] Signed out, open a login popup")
                 self.openLoginView()
             } else {

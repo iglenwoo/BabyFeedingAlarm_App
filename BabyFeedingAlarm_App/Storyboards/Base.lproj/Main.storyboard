@@ -55,6 +55,9 @@
                                                             <segment title="Breast Pump"/>
                                                             <segment title="Bottle"/>
                                                         </segments>
+                                                        <connections>
+                                                            <action selector="BBBindexChanged:" destination="5NU-ZM-y6N" eventType="valueChanged" id="tX6-Ef-acl"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AGi-hC-MkM">
                                                         <rect key="frame" x="19" y="144" width="317" height="51"/>
@@ -62,6 +65,9 @@
                                                             <segment title="Left"/>
                                                             <segment title="Right"/>
                                                         </segments>
+                                                        <connections>
+                                                            <action selector="LRindexChanged:" destination="5NU-ZM-y6N" eventType="valueChanged" id="7to-al-fJs"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -149,6 +155,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="LRSegmentedControl" destination="AGi-hC-MkM" id="Rdf-fP-O5A"/>
                         <outlet property="currentFeedTime" destination="cOU-9h-aUt" id="QOp-6F-SRN"/>
                         <outlet property="pauseOutlet" destination="hm0-nB-tFm" id="09k-nm-vKM"/>
                         <outlet property="startOutlet" destination="FQY-jB-cEc" id="kI5-TZ-eIl"/>

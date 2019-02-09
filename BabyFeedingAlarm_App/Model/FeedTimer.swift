@@ -20,11 +20,13 @@ class FeedTimer {
     var startDate: Date?
     var endDate: Date?
     var label: UILabel?
-    
+    var feedOption: FeedOption!
+
     // MARK: - Initialization
     
-    init(label: UILabel) {
+    init(label: UILabel, feedOption: FeedOption) {
         self.label = label
+        self.feedOption = feedOption
     }
 
     init?(snapshot: DataSnapshot) {
@@ -37,6 +39,7 @@ class FeedTimer {
         let fractions = dict?["fractions"] as! Int
         let startDate = df.date(from: dict?["startDate"] as! String)
         let endDate = df.date(from: dict?["endDate"] as! String)
+        let feedOption = FeedOption(snapshot: snapshot.childSnapshot(forPath: "feedOption"))
 
         self.hours = hours
         self.minutes = minutes
@@ -44,6 +47,7 @@ class FeedTimer {
         self.fractions = fractions
         self.startDate = startDate
         self.endDate = endDate
+        self.feedOption = feedOption
     }
 }
 

@@ -18,7 +18,8 @@ class FeedViewController: UIViewController {
     var ref: DatabaseReference!
 
     // TODO: 2. add buttons & status - breast/bottle feeding | pumping, Left | right
-
+    @IBOutlet weak var LRSegmentedControl: UISegmentedControl!
+    
     @IBOutlet weak var startOutlet: UIBarButtonItem!
     @IBOutlet weak var pauseOutlet: UIBarButtonItem!
     @IBOutlet weak var stopOutlet: UIBarButtonItem!
@@ -29,7 +30,8 @@ class FeedViewController: UIViewController {
 
         ref = Database.database().reference()
 
-        feedTimer = FeedTimer(label: currentFeedTime)
+        let feedOption = FeedOption(feedType: FeedOption.FeedType.breastFeeding.rawValue, breastType: FeedOption.BreastType.Left.rawValue)
+        feedTimer = FeedTimer(label: currentFeedTime, feedOption: feedOption)
 
         startOutlet.isEnabled = true;
         pauseOutlet.isEnabled = false;
@@ -37,6 +39,32 @@ class FeedViewController: UIViewController {
         print("viewDidLoad - Feed")
     }
 
+    @IBAction func LRindexChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0 :
+            feedTimer.feedOption.breastType = FeedOption.BreastType.Left.rawValue
+        case 1:
+            feedTimer.feedOption.breastType = FeedOption.BreastType.Right.rawValue
+        default:
+            break
+        }
+    }
+    @IBAction func BBBindexChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            feedTimer.feedOption.feedType = FeedOption.FeedType.breastFeeding.rawValue
+            LRSegmentedControl.isEnabled = true
+        case 1:
+            feedTimer.feedOption.feedType = FeedOption.FeedType.breastPumping.rawValue
+            LRSegmentedControl.isEnabled = true
+        case 2:
+            feedTimer.feedOption.feedType = FeedOption.FeedType.bottleFeeding.rawValue
+            feedTimer.feedOption.breastType = nil
+            LRSegmentedControl.isEnabled = false
+        default:
+            break
+        }
+    }
 }
 
 extension FeedViewController {
@@ -99,7 +127,8 @@ extension FeedViewController {
             "minutes": feedTimer.minutes,
             "seconds": feedTimer.seconds,
             "fractions": feedTimer.fractions,
-            "endDate": df.string(from: feedTimer.endDate!)
+            "endDate": df.string(from: feedTimer.endDate!),
+            "feedOption": feedTimer.feedOption.toDictionary()
         ] as [String : Any]
 
         // NOTE: setvalue vs updateChildValues ?

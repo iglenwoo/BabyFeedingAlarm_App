@@ -21,6 +21,7 @@
 		39BC958221F6E8F400D667C0 /* FeedTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BC958121F6E8F400D667C0 /* FeedTimer.swift */; };
 		39D307B821FC393C0078F70A /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D307B721FC393C0078F70A /* FeedTableViewCell.swift */; };
 		907609B59A02EA42930212E0 /* feedTime_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 907603454524913D655CAF7E /* feedTime_mock.json */; };
+		90760FF76DDDA3AAC3B0F11A /* FeedOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907609DDE906073CEE48A7FD /* FeedOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		39BC958121F6E8F400D667C0 /* FeedTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTimer.swift; sourceTree = "<group>"; };
 		39D307B721FC393C0078F70A /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		907603454524913D655CAF7E /* feedTime_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feedTime_mock.json; sourceTree = "<group>"; };
+		907609DDE906073CEE48A7FD /* FeedOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedOption.swift; sourceTree = "<group>"; };
 		BB6B37B01258216797DE248C /* Pods_BabyFeedingAlarm_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabyFeedingAlarm_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C18B1538F67B7A5F20B5729D /* Pods-BabyFeedingAlarm_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyFeedingAlarm_App.release.xcconfig"; path = "Pods/Target Support Files/Pods-BabyFeedingAlarm_App/Pods-BabyFeedingAlarm_App.release.xcconfig"; sourceTree = "<group>"; };
 		DAD76E090D3D9340A930FE49 /* Pods-BabyFeedingAlarm_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyFeedingAlarm_App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BabyFeedingAlarm_App/Pods-BabyFeedingAlarm_App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				39BC958121F6E8F400D667C0 /* FeedTimer.swift */,
+				907609DDE906073CEE48A7FD /* FeedOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				3928479221EBF89400F37F59 /* AppDelegate.swift in Sources */,
 				396A21FA21F28AC400EB2257 /* HistoryTableViewController.swift in Sources */,
 				393C6BF82207D17100E63FC1 /* Utils.swift in Sources */,
+				90760FF76DDDA3AAC3B0F11A /* FeedOption.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

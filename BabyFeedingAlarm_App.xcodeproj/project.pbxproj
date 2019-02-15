@@ -18,6 +18,8 @@
 		396A21F421F278E000EB2257 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F321F278E000EB2257 /* FeedViewController.swift */; };
 		396A21F821F278FE00EB2257 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F721F278FE00EB2257 /* SettingViewController.swift */; };
 		396A21FA21F28AC400EB2257 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */; };
+		39AFE44C22175EC7004DA4A1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AFE44B22175EC7004DA4A1 /* UserNotifications.framework */; };
+		39AFE44E22175ED3004DA4A1 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AFE44D22175ED3004DA4A1 /* PushKit.framework */; };
 		39BC958221F6E8F400D667C0 /* FeedTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BC958121F6E8F400D667C0 /* FeedTimer.swift */; };
 		39D307B821FC393C0078F70A /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D307B721FC393C0078F70A /* FeedTableViewCell.swift */; };
 		907609B59A02EA42930212E0 /* feedTime_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 907603454524913D655CAF7E /* feedTime_mock.json */; };
@@ -37,6 +39,9 @@
 		396A21F321F278E000EB2257 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		396A21F721F278FE00EB2257 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		396A21F921F28AC400EB2257 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		39AFE44A22175E44004DA4A1 /* BabyFeedingAlarm_App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BabyFeedingAlarm_App.entitlements; sourceTree = "<group>"; };
+		39AFE44B22175EC7004DA4A1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		39AFE44D22175ED3004DA4A1 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		39BC958121F6E8F400D667C0 /* FeedTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTimer.swift; sourceTree = "<group>"; };
 		39D307B721FC393C0078F70A /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		907603454524913D655CAF7E /* feedTime_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feedTime_mock.json; sourceTree = "<group>"; };
@@ -51,6 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39AFE44E22175ED3004DA4A1 /* PushKit.framework in Frameworks */,
+				39AFE44C22175EC7004DA4A1 /* UserNotifications.framework in Frameworks */,
 				1C73ADDCD6C59A1385867F47 /* Pods_BabyFeedingAlarm_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +86,7 @@
 		3928479021EBF89400F37F59 /* BabyFeedingAlarm_App */ = {
 			isa = PBXGroup;
 			children = (
+				39AFE44A22175E44004DA4A1 /* BabyFeedingAlarm_App.entitlements */,
 				39BC959021F70FC200D667C0 /* App Delegate */,
 				39BC958721F70BC900D667C0 /* Model */,
 				39BC958A21F70EAF00D667C0 /* View Controllers */,
@@ -158,6 +166,8 @@
 		FA4A4E135C69DE3B3505CC28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				39AFE44D22175ED3004DA4A1 /* PushKit.framework */,
+				39AFE44B22175EC7004DA4A1 /* UserNotifications.framework */,
 				BB6B37B01258216797DE248C /* Pods_BabyFeedingAlarm_App.framework */,
 			);
 			name = Frameworks;
@@ -198,6 +208,11 @@
 				TargetAttributes = {
 					3928478D21EBF89400F37F59 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -418,7 +433,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: iglenwoo@me.com (6VUWQ4XHK8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -479,7 +494,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: iglenwoo@me.com (6VUWQ4XHK8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -507,7 +522,8 @@
 			baseConfigurationReference = DAD76E090D3D9340A930FE49 /* Pods-BabyFeedingAlarm_App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = BabyFeedingAlarm_App/BabyFeedingAlarm_App.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TW2G7A5598;
 				INFOPLIST_FILE = "$(SRCROOT)/BabyFeedingAlarm_App/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -516,8 +532,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "igwoo.BabyFeedingAlarm-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Baby Feeding Alarm";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -526,7 +543,8 @@
 			baseConfigurationReference = C18B1538F67B7A5F20B5729D /* Pods-BabyFeedingAlarm_App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = BabyFeedingAlarm_App/BabyFeedingAlarm_App.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = TW2G7A5598;
 				INFOPLIST_FILE = "$(SRCROOT)/BabyFeedingAlarm_App/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -535,8 +553,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "igwoo.BabyFeedingAlarm-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Baby Feeding Alarm";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func registerForPushNotifications() {
+        UNUserNotificationCenter.current().delegate = self
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
             (granted, error) in
             print("Permission granted: \(granted)")
@@ -81,6 +83,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     // This function will be called right after user tap on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let application = UIApplication.shared
+        
+        if(application.applicationState == .active) {
+            print("user tapped the notification bar when the app is in 'foreground'")
+        }
+        
+        if(application.applicationState == .inactive) {
+            print("user tapped the notification bar when the app is in 'background'")
+        }
+        
         completionHandler()
     }
 }

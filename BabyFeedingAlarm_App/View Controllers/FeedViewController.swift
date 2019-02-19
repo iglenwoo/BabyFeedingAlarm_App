@@ -78,6 +78,10 @@ extension FeedViewController {
             stopOutlet.isEnabled = true;
 
             feedTimer!.start()
+
+
+            // TODO: 0. store start date into Firebase /{started}/{Date}/{uid, others ???}
+            // intervalMin should be fetched from user data, otherwise it won't work with last updated min
         case .start:
             print("Already started... Do nothing")
         }

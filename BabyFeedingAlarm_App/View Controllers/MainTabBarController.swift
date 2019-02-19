@@ -12,6 +12,8 @@ import FirebaseUI
 
 class MainTabBarController: UITabBarController {
 
+    var ref: DatabaseReference!
+
     /** @var handle
      @brief The handle for the auth state listener, to allow cancelling later.
      */
@@ -25,6 +27,8 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        ref = Database.database().reference()
 
         /*if Auth.auth().currentUser != nil {
             print("[MainTabBarController] Current user is \"\(Auth.auth().currentUser.debugDescription)\"")
@@ -67,9 +71,25 @@ extension MainTabBarController: FUIAuthDelegate {
         }
 
         let uid = authDataResult!.user.uid
-        let email = authDataResult!.user.email
+        let email = authDataResult!.user.email ?? "none"
         debugPrint("[MainTabBarController] uid is \"\(uid)\"")
-        debugPrint("[MainTabBarController] email is \"\(email ?? "email doesn't exist")\"")
+        debugPrint("[MainTabBarController] email is \"\(email)\"")
+
+        let user: User = User(uid: uid, email: email)
+        storeUser(user)
+    }
+
+    private func storeUser(_ user: User) {
+        let df = Utils.getDateFormatter()
+
+        let value = [
+            "uid": user.uid,
+            "email": user.email,
+            "alarmIntervalMin": user.alarmIntervalMin,
+            "created": df.string(from: Date())
+        ] as [String : Any]
+
+        self.ref.child("users/\(user.uid)").setValue(value)
     }
 }
 

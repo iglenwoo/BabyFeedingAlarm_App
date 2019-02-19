@@ -17,7 +17,20 @@
                     <view key="view" contentMode="scaleToFill" id="spX-lZ-KoV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kX-Bj-sbc">
+                                <rect key="frame" x="159" y="318.5" width="57" height="30"/>
+                                <state key="normal" title="Sign out"/>
+                                <connections>
+                                    <action selector="singOut:" destination="pks-me-2Hm" eventType="touchUpInside" id="3S7-eh-aTO"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0kX-Bj-sbc" firstAttribute="centerY" secondItem="spX-lZ-KoV" secondAttribute="centerY" id="O7T-7t-uqu"/>
+                            <constraint firstItem="0kX-Bj-sbc" firstAttribute="centerX" secondItem="spX-lZ-KoV" secondAttribute="centerX" id="nY7-3p-rPb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="b91-JI-qPK"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Setting" image="tb-settings-filled-30" id="PEp-hR-Dka" userLabel="SettingItem"/>

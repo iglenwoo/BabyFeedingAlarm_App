@@ -80,13 +80,11 @@ extension MainTabBarController: FUIAuthDelegate {
     }
 
     private func storeUser(_ user: User) {
-        let df = Utils.getDateFormatter()
-
         let value = [
             "uid": user.uid,
             "email": user.email,
             "alarmIntervalMin": user.alarmIntervalMin,
-            "created": df.string(from: Date())
+            "created": Utils.currentDateToString()
         ] as [String : Any]
 
         self.ref.child("users/\(user.uid)").setValue(value)

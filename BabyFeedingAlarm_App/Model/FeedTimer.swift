@@ -13,14 +13,18 @@ class FeedTimer {
 
     // MARK: - Properties
 
-    let updateInterval: Double = 0.1
-    var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+    static let updateInterval: Double = 0.1
     var status: Status = Status.stop
-    var timer: Timer?
-    var startDate: Date?
-    var endDate: Date?
-    var label: UILabel?
     var feedOption: FeedOption!
+
+    var initialTime: Double = 0;
+    var startTime: Double = 0;
+    var accumulatedTime: Double = 0;
+    var elapsedTime: Double = 0;
+    var endTime: Double = 0;
+
+    var timer: Timer?
+    var label: UILabel?
 
     // MARK: - Initialization
     
@@ -30,23 +34,16 @@ class FeedTimer {
     }
 
     init?(snapshot: DataSnapshot) {
-        let df = Utils.getDateFormatter()
-
         let dict = snapshot.value as? [String:Any]
-        let hours = dict?["hours"] as! Int
-        let minutes = dict?["minutes"] as! Int
-        let seconds = dict?["seconds"] as! Int
-        let fractions = dict?["fractions"] as! Int
-        let startDate = df.date(from: dict?["startDate"] as! String)
-        let endDate = df.date(from: dict?["endDate"] as! String)
+
+        let initialTime = Utils.dateStringToDouble(dict?["initialTime"] as! String)
+        let accumulatedTime = Utils.stringToDouble(dict?["accumulatedTime"] as! String)
+        let endTime = Utils.dateStringToDouble(dict?["endTime"] as! String)
         let feedOption = FeedOption(snapshot: snapshot.childSnapshot(forPath: "feedOption"))
 
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.fractions = fractions
-        self.startDate = startDate
-        self.endDate = endDate
+        self.initialTime = initialTime
+        self.accumulatedTime = accumulatedTime
+        self.endTime = endTime
         self.feedOption = feedOption
     }
 }
@@ -65,36 +62,26 @@ extension FeedTimer {
 extension FeedTimer {
     func start() {
         if status == .stop {
-            startDate = Date()
-            (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+            initialTime = Date().timeIntervalSinceReferenceDate
+            startTime = initialTime
+            accumulatedTime = 0
+            elapsedTime = 0
+        } else if status == .pause {
+            startTime = Date().timeIntervalSinceReferenceDate
         }
 
         status = .start
 
         // create the timer object without scheduling it on a run loop
-        self.timer = Timer.init(timeInterval: updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+        self.timer = Timer.init(timeInterval: FeedTimer.updateInterval, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
         // The timer may fire at any time between its scheduled fire date and the scheduled fire date plus the tolerance.
         // A general rule, set the tolerance to at least 10% of the interval, for a repeating timer.
-        timer?.tolerance = updateInterval * 0.2 //20%
+        timer?.tolerance = FeedTimer.updateInterval * 0.2 //20%
         RunLoop.current.add(timer!, forMode: .common)
     }
 
     @objc func updateTime() {
-        fractions += 1
-        if (fractions > 9) {
-            seconds += 1
-            fractions = 0
-        }
-
-        if (seconds == 60) {
-            minutes += 1
-            seconds = 0
-        }
-
-        if (minutes == 60) {
-            hours += 1
-            minutes = 0
-        }
+        elapsedTime = Date().timeIntervalSinceReferenceDate - startTime
 
         printTime()
     }
@@ -104,11 +91,8 @@ extension FeedTimer {
         case .stop:
             label?.text = "00:00:00"
         case .start, .pause:
-            let secondsString = seconds > 9 ? "\(seconds)" : "0\(seconds)"
-            let minutesString = minutes > 9 ? "\(minutes)" : "0\(minutes)"
-            let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
-
-            label?.text = "\(hoursString):\(minutesString):\(secondsString)"
+            let formattedString = Utils.doubleToPrintString(accumulatedTime + elapsedTime)
+            label?.text = formattedString
         }
     }
 }
@@ -116,6 +100,8 @@ extension FeedTimer {
 extension FeedTimer {
     func pause() {
         status = .pause
+
+        accumulatedTime += Date().timeIntervalSinceReferenceDate - startTime
 
         timer?.invalidate()
     }
@@ -125,7 +111,8 @@ extension FeedTimer {
     func stop() {
         status = .stop
 
-        endDate = Date()
+        accumulatedTime += elapsedTime
+        endTime = Date().timeIntervalSinceReferenceDate
         timer?.invalidate()
 
         printTime()

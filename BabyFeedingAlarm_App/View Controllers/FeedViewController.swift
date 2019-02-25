@@ -15,7 +15,7 @@ class FeedViewController: UIViewController {
 
     // TODO: 0. Change entire timer logic : https://stackoverflow.com/questions/30983111/swift-timer-in-milliseconds/30983444#30983444
     var feedTimer: FeedTimer!
-    var isStartDateStored = false;
+    var isInitialTimeStored = false;
 
     var ref: DatabaseReference!
 
@@ -33,14 +33,14 @@ class FeedViewController: UIViewController {
 
         let feedOption = FeedOption(feedType: FeedOption.FeedType.breastFeeding.rawValue, breastType: FeedOption.BreastType.Left.rawValue)
         feedTimer = FeedTimer(label: currentFeedTime, feedOption: feedOption)
-        let startDate = UserDefaults.standard.object(forKey: "startDate") as? Date
-        let started = UserDefaults.standard.bool(forKey: "status")
-        if startDate != nil {
-            feedTimer.startDate = startDate
-        }
-        if started == true {
-            feedTimer.status = FeedTimer.Status.start
-        }
+//        let startDate = UserDefaults.standard.object(forKey: "startDate") as? Date
+//        let started = UserDefaults.standard.bool(forKey: "status")
+//        if startDate != nil {
+//            feedTimer.startDate = startDate
+//        }
+//        if started == true {
+//            feedTimer.status = FeedTimer.Status.start
+//        }
 
         startOutlet.isEnabled = true;
         pauseOutlet.isEnabled = false;
@@ -87,7 +87,7 @@ extension FeedViewController {
             pauseOutlet.isEnabled = true;
             stopOutlet.isEnabled = true;
 
-            feedTimer!.start()
+            feedTimer.start()
 
             storeStartTime()
 
@@ -97,24 +97,26 @@ extension FeedViewController {
     }
 
     private func storeStartTime() {
-        if (!isStartDateStored) {
-            let user = Auth.auth().currentUser
-
-            let df = Utils.getDateFormatter()
-            let key: String = df.string(from: feedTimer.startDate!)
-
-            let value = [
-                "uid": user?.uid
-            ] as [String: Any]
-
-            self.ref.child("started/\(key)").setValue(value)
-
-            UserDefaults.standard.set(feedTimer.startDate, forKey: "startDate")
-            if (feedTimer.status == FeedTimer.Status.start) {
-                UserDefaults.standard.set(true, forKey: "started")
+        if (!isInitialTimeStored) {
+            guard let user = Auth.auth().currentUser else {
+                print("Failed to store start time: cannot get current user")
+                return;
             }
 
-            isStartDateStored = true;
+            let dateKey = Utils.timeDoubleToString(feedTimer.initialTime)
+
+            let value = [
+                "uid": user.uid
+            ] as [String: Any]
+
+            self.ref.child("started/\(dateKey)").setValue(value)
+
+//            UserDefaults.standard.set(feedTimer.initialTime, forKey: "initialTime")
+//            if (feedTimer.status == FeedTimer.Status.start) {
+//                UserDefaults.standard.set(true, forKey: "started")
+//            }
+
+            isInitialTimeStored = true;
         }
     }
 
@@ -125,7 +127,7 @@ extension FeedViewController {
             pauseOutlet.isEnabled = false;
             stopOutlet.isEnabled = true;
 
-            feedTimer?.pause()
+            feedTimer.pause()
         case .pause:
             print("Already paused, Do nothing")
         case .stop:
@@ -140,7 +142,7 @@ extension FeedViewController {
             pauseOutlet.isEnabled = false;
             stopOutlet.isEnabled = false;
 
-            feedTimer?.stop()
+            feedTimer.stop()
 
             storeHistory()
 
@@ -150,25 +152,24 @@ extension FeedViewController {
     }
 
     func storeHistory() {
-        let user = Auth.auth().currentUser
+        guard let user = Auth.auth().currentUser else {
+            print("Cannot get current user")
+            return;
+        }
 
-        let df = Utils.getDateFormatter()
-        let key = df.string(from: feedTimer.startDate!)
+        let dateKey = Utils.timeDoubleToString(feedTimer.initialTime)
 
         let value = [
-            "startDate": key,
-            "hours": feedTimer.hours,
-            "minutes": feedTimer.minutes,
-            "seconds": feedTimer.seconds,
-            "fractions": feedTimer.fractions,
-            "endDate": df.string(from: feedTimer.endDate!),
+            "initialTime": dateKey,
+            "accumulatedTime": String(format: "%02d", Int(feedTimer.accumulatedTime)),
+            "endTime": Utils.timeDoubleToString(feedTimer.endTime),
             "feedOption": feedTimer.feedOption.toDictionary()
         ] as [String : Any]
 
         // NOTE: setvalue vs updateChildValues ?
 //        self.ref.child("feedTimes/\(user!.uid)/\(key)").setValue(value)
-        self.ref.child("feedTimes/\(user!.uid)/\(key)").updateChildValues(value)
+        self.ref.child("feedTimes/\(user.uid)/\(dateKey)").updateChildValues(value)
 
-        isStartDateStored = false;
+        isInitialTimeStored = false;
     }
 }

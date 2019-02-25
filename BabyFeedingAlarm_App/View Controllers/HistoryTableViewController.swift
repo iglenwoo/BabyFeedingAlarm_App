@@ -88,10 +88,10 @@ extension HistoryTableViewController {
 
         // TODO: 3. show more info e.g. feedType, Group by date?
         let feedTime = feedTimes[indexPath.row]
-        let hours = String(feedTime.hours)
-        let minutes = String(feedTime.minutes)
-        let seconds = String(feedTime.seconds)
-        cell.minutes.text = "\(hours) hour  \(minutes) minutes  \(seconds) seconds"
+
+        let formattedString = Utils.doubleToPrintString(feedTime.accumulatedTime)
+
+        cell.minutes.text = formattedString
 
         return cell
 
@@ -107,8 +107,7 @@ extension HistoryTableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             let feedTime = feedTimes[indexPath.row]
-            let df = Utils.getDateFormatter()
-            let key = df.string(from: feedTime.startDate!)
+            let key = Utils.timeDoubleToString(feedTime.initialTime)
             let identifier = "feedTimes/\(currentUser.uid)/\(key)"
             ref.child(identifier).removeValue();
 

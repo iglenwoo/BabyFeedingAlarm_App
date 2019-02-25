@@ -13,7 +13,6 @@ import FirebaseDatabase
 
 class FeedViewController: UIViewController {
 
-    // TODO: 0. Change entire timer logic : https://stackoverflow.com/questions/30983111/swift-timer-in-milliseconds/30983444#30983444
     var feedTimer: FeedTimer!
     var isInitialTimeStored = false;
 
@@ -89,27 +88,25 @@ extension FeedViewController {
 
             feedTimer.start()
 
-            storeStartTime()
+            storeInitialTime()
 
         case .start:
             print("Already started... Do nothing")
         }
     }
 
-    private func storeStartTime() {
+    private func storeInitialTime() {
         if (!isInitialTimeStored) {
             guard let user = Auth.auth().currentUser else {
                 print("Failed to store start time: cannot get current user")
                 return;
             }
 
-            let dateKey = Utils.timeDoubleToString(feedTimer.initialTime)
-
             let value = [
-                "uid": user.uid
+                "initialTime": Utils.timeDoubleToString(feedTimer.initialTime)
             ] as [String: Any]
 
-            self.ref.child("started/\(dateKey)").setValue(value)
+            self.ref.child("started/\(user.uid)").setValue(value)
 
 //            UserDefaults.standard.set(feedTimer.initialTime, forKey: "initialTime")
 //            if (feedTimer.status == FeedTimer.Status.start) {
@@ -146,6 +143,7 @@ extension FeedViewController {
 
             storeHistory()
 
+            removeInitialTime()
         case .stop:
             print("Already stopped, Do nothing")
         }
@@ -169,6 +167,17 @@ extension FeedViewController {
         // NOTE: setvalue vs updateChildValues ?
 //        self.ref.child("feedTimes/\(user!.uid)/\(key)").setValue(value)
         self.ref.child("feedTimes/\(user.uid)/\(dateKey)").updateChildValues(value)
+
+        isInitialTimeStored = false;
+    }
+
+    func removeInitialTime() {
+        guard let user = Auth.auth().currentUser else {
+            print("Cannot get current user")
+            return;
+        }
+
+        self.ref.child("started/\(user.uid)").removeValue()
 
         isInitialTimeStored = false;
     }

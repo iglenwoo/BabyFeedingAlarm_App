@@ -62,12 +62,12 @@ extension FeedTimer {
 extension FeedTimer {
     func start() {
         if status == .stop {
-            initialTime = Date().timeIntervalSinceReferenceDate
+            initialTime = Date().timeIntervalSince1970
             startTime = initialTime
             accumulatedTime = 0
             elapsedTime = 0
         } else if status == .pause {
-            startTime = Date().timeIntervalSinceReferenceDate
+            startTime = Date().timeIntervalSince1970
         }
 
         status = .start
@@ -81,7 +81,7 @@ extension FeedTimer {
     }
 
     @objc func updateTime() {
-        elapsedTime = Date().timeIntervalSinceReferenceDate - startTime
+        elapsedTime = Date().timeIntervalSince1970 - startTime
 
         printTime()
     }
@@ -101,7 +101,7 @@ extension FeedTimer {
     func pause() {
         status = .pause
 
-        accumulatedTime += Date().timeIntervalSinceReferenceDate - startTime
+        accumulatedTime += Date().timeIntervalSince1970 - startTime
 
         timer?.invalidate()
     }
@@ -112,7 +112,7 @@ extension FeedTimer {
         status = .stop
 
         accumulatedTime += elapsedTime
-        endTime = Date().timeIntervalSinceReferenceDate
+        endTime = Date().timeIntervalSince1970
         timer?.invalidate()
 
         printTime()

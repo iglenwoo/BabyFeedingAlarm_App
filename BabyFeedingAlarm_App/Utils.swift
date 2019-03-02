@@ -18,7 +18,7 @@ class Utils {
     }()
 
     static func timeDoubleToString(_ time: Double) -> String {
-        let date = Date(timeIntervalSinceReferenceDate: time)
+        let date = Date(timeIntervalSince1970: time)
         return dateFormatter.string(from: date)
     }
 
@@ -31,7 +31,7 @@ class Utils {
             return 0.0
         }
 
-        return date.timeIntervalSinceReferenceDate as Double
+        return date.timeIntervalSince1970 as Double
     }
 
     static func stringToDouble(_ time: String) -> Double {

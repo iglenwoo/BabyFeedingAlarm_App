@@ -77,6 +77,7 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController {
 
+    // TODO: bug - when started, feed options still changeable
     // MARK: - Feed Controllers
 
     @IBAction func startTapped(_ sender: UIBarButtonItem) {

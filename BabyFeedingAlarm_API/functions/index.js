@@ -14,3 +14,8 @@ exports.printOut = functions.database.ref('/started/{uid}').onCreate((snapshot, 
 
   console.log(`Started ! (val: ${val} | uid: ${uid})`);
 });
+
+function getUsersOverTime() {
+  const tenMinBefore = Date.now()
+  functions.database.ref('/started').orderByChild('initialTime')
+}

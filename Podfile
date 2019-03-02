@@ -8,5 +8,6 @@ target 'BabyFeedingAlarm_App' do
   # Pods for BabyFeedingAlarm_App
   pod 'Firebase/Core'
   pod 'FirebaseUI'
+  pod 'Firebase/Messaging'
 
 end

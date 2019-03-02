@@ -15,6 +15,7 @@ class FeedViewController: UIViewController {
 
     var feedTimer: FeedTimer!
     var isInitialTimeStored = false;
+    var fcmToken: String = ""
 
     var ref: DatabaseReference!
 
@@ -27,6 +28,9 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.displayFCMToken(notification:)),
+                name: Notification.Name("FCMToken"), object: nil)
 
         ref = Database.database().reference()
 
@@ -45,6 +49,14 @@ class FeedViewController: UIViewController {
         pauseOutlet.isEnabled = false;
         stopOutlet.isEnabled = false;
         print("viewDidLoad - Feed")
+    }
+
+    @objc func displayFCMToken(notification: NSNotification){
+        guard let userInfo = notification.userInfo else {return}
+        if let fcmToken = userInfo["token"] as? String {
+            self.fcmToken = fcmToken
+            print("Received FCM token: \(fcmToken)")
+        }
     }
 
     @IBAction func LRindexChanged(_ sender: UISegmentedControl) {
@@ -104,7 +116,8 @@ extension FeedViewController {
             }
 
             let value = [
-                "initialTime": Utils.timeDoubleToString(feedTimer.initialTime)
+                "initialTime": String(feedTimer.initialTime),
+                "fcmToken": self.fcmToken
             ] as [String: Any]
 
             self.ref.child("started/\(user.uid)").setValue(value)

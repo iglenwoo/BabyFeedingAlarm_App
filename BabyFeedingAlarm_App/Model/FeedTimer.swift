@@ -109,13 +109,13 @@ extension FeedTimer {
 
 extension FeedTimer {
     func stop() {
-        status = .stop
-
         if status == .start {
             accumulatedTime += Date().timeIntervalSince1970 - startTime
         }
         endTime = Date().timeIntervalSince1970
         timer?.invalidate()
+
+        status = .stop
 
         printTime()
     }

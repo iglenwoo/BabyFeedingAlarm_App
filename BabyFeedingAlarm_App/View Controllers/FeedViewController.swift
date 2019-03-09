@@ -36,14 +36,6 @@ class FeedViewController: UIViewController {
 
         let feedOption = FeedOption(feedType: FeedOption.FeedType.breastFeeding.rawValue, breastType: FeedOption.BreastType.Left.rawValue)
         feedTimer = FeedTimer(label: currentFeedTime, feedOption: feedOption)
-//        let startDate = UserDefaults.standard.object(forKey: "startDate") as? Date
-//        let started = UserDefaults.standard.bool(forKey: "status")
-//        if startDate != nil {
-//            feedTimer.startDate = startDate
-//        }
-//        if started == true {
-//            feedTimer.status = FeedTimer.Status.start
-//        }
 
         startOutlet.isEnabled = true;
         pauseOutlet.isEnabled = false;
@@ -121,11 +113,6 @@ extension FeedViewController {
             ] as [String: Any]
 
             self.ref.child("started/\(user.uid)").setValue(value)
-
-//            UserDefaults.standard.set(feedTimer.initialTime, forKey: "initialTime")
-//            if (feedTimer.status == FeedTimer.Status.start) {
-//                UserDefaults.standard.set(true, forKey: "started")
-//            }
 
             isInitialTimeStored = true;
         }

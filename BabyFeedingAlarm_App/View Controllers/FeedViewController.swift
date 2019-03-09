@@ -19,6 +19,7 @@ class FeedViewController: UIViewController {
 
     var ref: DatabaseReference!
 
+    @IBOutlet weak var FeedSegmentedControl: UISegmentedControl!
     @IBOutlet weak var LRSegmentedControl: UISegmentedControl!
     
     @IBOutlet weak var startOutlet: UIBarButtonItem!
@@ -81,7 +82,6 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController {
 
-    // TODO: bug - when started, feed options still changeable
     // MARK: - Feed Controllers
 
     @IBAction func startTapped(_ sender: UIBarButtonItem) {
@@ -90,6 +90,9 @@ extension FeedViewController {
             startOutlet.isEnabled = false;
             pauseOutlet.isEnabled = true;
             stopOutlet.isEnabled = true;
+
+            FeedSegmentedControl.isEnabled = false
+            LRSegmentedControl.isEnabled = false
 
             feedTimer.start()
 
@@ -139,6 +142,11 @@ extension FeedViewController {
             startOutlet.isEnabled = true;
             pauseOutlet.isEnabled = false;
             stopOutlet.isEnabled = false;
+
+            FeedSegmentedControl.isEnabled = true
+            if (feedTimer.feedOption.feedType != FeedOption.FeedType.bottleFeeding.rawValue) {
+                LRSegmentedControl.isEnabled = true
+            }
 
             feedTimer.stop()
 

@@ -168,6 +168,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="FeedSegmentedControl" destination="o6W-2Y-wG5" id="eTv-4F-bOG"/>
                         <outlet property="LRSegmentedControl" destination="AGi-hC-MkM" id="Rdf-fP-O5A"/>
                         <outlet property="currentFeedTime" destination="cOU-9h-aUt" id="QOp-6F-SRN"/>
                         <outlet property="pauseOutlet" destination="hm0-nB-tFm" id="09k-nm-vKM"/>

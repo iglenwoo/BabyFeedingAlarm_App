@@ -112,6 +112,8 @@ extension FeedViewController {
 
             let value = [
                 "initialTime": String(feedTimer.initialTime),
+                "accumulatedTime": String(format: "%02d", Int(feedTimer.accumulatedTime)),
+                "feedOption": feedTimer.feedOption.toDictionary(),
                 "fcmToken": self.fcmToken
             ] as [String: Any]
 
@@ -129,11 +131,26 @@ extension FeedViewController {
             stopOutlet.isEnabled = true;
 
             feedTimer.pause()
+
+            storeCurrentTime()
         case .pause:
             print("Already paused, Do nothing")
         case .stop:
             print("Already stopped, Do nothing")
         }
+    }
+
+    private func storeCurrentTime() {
+        guard let user = Auth.auth().currentUser else {
+            print("Failed to store start time: cannot get current user")
+            return;
+        }
+
+        let value = [
+            "accumulatedTime": String(format: "%02d", Int(feedTimer.accumulatedTime))
+        ] as [String: Any]
+
+        self.ref.child("started/\(user.uid)").updateChildValues(value)
     }
 
     @IBAction func stopTapped(_ sender: Any) {
@@ -153,6 +170,8 @@ extension FeedViewController {
             storeHistory()
 
             removeInitialTime()
+
+            isInitialTimeStored = false;
         case .stop:
             print("Already stopped, Do nothing")
         }
@@ -176,8 +195,6 @@ extension FeedViewController {
         // NOTE: setvalue vs updateChildValues ?
 //        self.ref.child("feedTimes/\(user!.uid)/\(key)").setValue(value)
         self.ref.child("feedTimes/\(user.uid)/\(dateKey)").updateChildValues(value)
-
-        isInitialTimeStored = false;
     }
 
     func removeInitialTime() {
@@ -187,7 +204,5 @@ extension FeedViewController {
         }
 
         self.ref.child("started/\(user.uid)").removeValue()
-
-        isInitialTimeStored = false;
     }
 }

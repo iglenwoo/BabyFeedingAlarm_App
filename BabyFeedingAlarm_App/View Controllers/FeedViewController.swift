@@ -192,9 +192,7 @@ extension FeedViewController {
             "feedOption": feedTimer.feedOption.toDictionary()
         ] as [String : Any]
 
-        // NOTE: setvalue vs updateChildValues ?
-//        self.ref.child("feedTimes/\(user!.uid)/\(key)").setValue(value)
-        self.ref.child("feedTimes/\(user.uid)/\(dateKey)").updateChildValues(value)
+        self.ref.child("feedTimes/\(user.uid)/\(dateKey)").setValue(value)
     }
 
     func removeInitialTime() {

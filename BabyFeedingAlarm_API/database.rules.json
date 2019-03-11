@@ -10,6 +10,9 @@
     // }
     
     ".read": "auth != null",
-    ".write": "auth != null"
+    ".write": "auth != null",
+    "started": {
+      ".indexOn": [ "initialTime" ]
+    }
   }
 }

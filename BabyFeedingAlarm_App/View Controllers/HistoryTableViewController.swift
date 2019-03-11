@@ -24,12 +24,12 @@ class HistoryTableViewController: UITableViewController {
 
         configureDatabase()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDBRef), name: NSNotification.Name(rawValue: "updateDBRef"), object: nil)
+
         print("viewDidLoad - History")
     }
 
-    func configureDatabase() {
-        ref = Database.database().reference()
-
+    @objc func updateDBRef() {
         guard let currentUser = Auth.auth().currentUser else {
             print("currentUser is nil")
             return
@@ -37,6 +37,12 @@ class HistoryTableViewController: UITableViewController {
 
         let identifier = "feedTimes/\(currentUser.uid)"
         feedTimeRef = ref.child(identifier);
+    }
+
+    func configureDatabase() {
+        ref = Database.database().reference()
+
+        updateDBRef()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,12 +92,19 @@ extension HistoryTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
-        // TODO: 3. show more info e.g. feedType, Group by date?
+        // TODO: 3. Group by date?
         let feedTime = feedTimes[indexPath.row]
+
+        var type = ""
+        if (feedTime.feedOption.feedType == FeedOption.FeedType.bottleFeeding.rawValue) {
+            type = "Bottle"
+        } else {
+            type = feedTime.feedOption.breastType ?? ""
+        }
 
         let formattedString = Utils.doubleToPrintString(feedTime.accumulatedTime)
 
-        cell.minutes.text = formattedString
+        cell.minutes.text = type + "  " + formattedString
 
         return cell
 

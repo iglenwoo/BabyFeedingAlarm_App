@@ -51,6 +51,7 @@ class MainTabBarController: UITabBarController {
                 self.openLoginView()
             } else {
                 debugPrint("[MainTabBarController] Signed in?")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDBRef"), object: nil)
             }
         }
     }

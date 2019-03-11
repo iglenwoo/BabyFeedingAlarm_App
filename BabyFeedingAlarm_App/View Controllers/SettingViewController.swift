@@ -17,7 +17,6 @@ class SettingViewController: UIViewController {
         print("viewDidLoad - Setting")
     }
  
-    // TODO: bug - after sign-out, list should be corrected. currently shows the prev users' list.
     // MARK: - Actions
     @IBAction func singOut(_ sender: UIButton) {
         try! Auth.auth().signOut()

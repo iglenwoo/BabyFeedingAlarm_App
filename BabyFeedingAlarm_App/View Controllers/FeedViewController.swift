@@ -72,7 +72,7 @@ class FeedViewController: UIViewController {
             LRSegmentedControl.isEnabled = true
         case 2:
             feedTimer.feedOption.feedType = FeedOption.FeedType.bottleFeeding.rawValue
-            feedTimer.feedOption.breastType = nil
+            feedTimer.feedOption.breastType = FeedOption.BreastType.None.rawValue
             LRSegmentedControl.isEnabled = false
         default:
             break

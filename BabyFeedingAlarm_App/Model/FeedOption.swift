@@ -48,5 +48,6 @@ extension FeedOption {
     enum BreastType: String {
         case Left = "Left"
         case Right = "Right"
+        case None = ""
     }
 }

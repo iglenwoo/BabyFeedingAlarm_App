@@ -93,21 +93,25 @@ extension HistoryTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as! FeedTableViewCell
 
         // TODO: 3. Group by date?
+
+        var history = ""
+
         let feedTime = feedTimes[indexPath.row]
 
-        var type = ""
         if (feedTime.feedOption.feedType == FeedOption.FeedType.bottleFeeding.rawValue) {
-            type = "Bottle"
+            history.append("Bottle\t")
         } else {
-            type = feedTime.feedOption.breastType ?? ""
+            if let type = feedTime.feedOption.breastType {
+                history.append("\(type)\t")
+            }
         }
 
         let formattedString = Utils.doubleToPrintString(feedTime.accumulatedTime)
+        history.append(formattedString)
 
-        cell.minutes.text = type + "  " + formattedString
+        cell.minutes.text = history
 
         return cell
-
     }
 
     // TODO: 4. update history

@@ -112,22 +112,31 @@ extension HistoryTableViewController {
 
     // TODO: 4. update history
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let confirmAlert = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: UIAlertController.Style.alert)
+            confirmAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+                self.delete(row: indexPath.row, indexPath: indexPath)
+            }))
+            confirmAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(confirmAlert, animated: true, completion: nil)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+
+    func delete(row: Int, indexPath: IndexPath) {
         guard let currentUser = Auth.auth().currentUser else {
             print("currentUser is nil")
             return
         }
 
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let feedTime = feedTimes[indexPath.row]
-            let key = Utils.timeDoubleToString(feedTime.initialTime)
-            let identifier = "feedTimes/\(currentUser.uid)/\(key)"
-            ref.child(identifier).removeValue();
+        // Delete the row from the data source
+        let feedTime = feedTimes[row]
+        let key = Utils.timeDoubleToString(feedTime.initialTime)
+        let identifier = "feedTimes/\(currentUser.uid)/\(key)"
+        ref.child(identifier).removeValue();
 
-            feedTimes.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .bottom)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+        feedTimes.remove(at: row)
+        self.tableView.deleteRows(at: [indexPath], with: .bottom)
     }
 }
